@@ -89,5 +89,6 @@ CREATE TABLE shop.itemcompra(
 	valor NUMERIC(5,2) NOT NULL 
 )
 GO
-
+CREATE INDEX ix_nomecliente ON pessoa.cliente(nome);
+CREATE INDEX ix_produto ON shop.produto(nome);
 
