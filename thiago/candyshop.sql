@@ -56,7 +56,6 @@ GO
 CREATE TABLE shop.compra(
 	id INT CONSTRAINT pk_compra PRIMARY KEY IDENTITY,
 	idresponsavel INT CONSTRAINT fk_compra_responsavel FOREIGN KEY REFERENCES administrativo.responsavel(id) not null,
-	idproduto INT CONSTRAINT fk_compra_produto FOREIGN KEY REFERENCES shop.produto NOT NULL,
 	dtcompra DATE DEFAULT(GETDATE()) NOT NULL
 )
 GO
@@ -77,10 +76,10 @@ CREATE TABLE shop.financeiro(
 GO
 CREATE TABLE shop.itemvenda(
 	idproduto INT CONSTRAINT fk_itemvenda_produto FOREIGN KEY REFERENCES shop.produto(id) NOT NULL,
-	idcompra INT CONSTRAINT fk_itemvenda_compra FOREIGN KEY REFERENCES shop.compra(id) NOT NULL,
+	idvenda INT CONSTRAINT fk_itemvenda_venda FOREIGN KEY REFERENCES shop.venda(id) NOT NULL,
 	qtde INT NOT NULL,
 	valor NUMERIC(5,2) NOT NULL,
-	CONSTRAINT pk_itemvenda PRIMARY KEY(idproduto,idcompra)
+	CONSTRAINT pk_itemvenda PRIMARY KEY(idproduto,idvenda)
 )
 GO
 CREATE TABLE shop.itemcompra(
@@ -90,3 +89,5 @@ CREATE TABLE shop.itemcompra(
 	valor NUMERIC(5,2) NOT NULL 
 )
 GO
+
+
