@@ -1,6 +1,8 @@
 --Cria Banco de dados 
 CREATE DATABASE LojaDoces
 
+USE LojaDoces
+
 --Cria tabela Funcionario
 CREATE TABLE tb_Cliente (
 	id SMALLINT PRIMARY KEY IDENTITY(1,1),
@@ -11,25 +13,21 @@ CREATE TABLE tb_Cliente (
 	cpf BIGINT NOT NULL,
 	rg BIGINT NOT NULL
 )
---Cria a tabela Venda
-CREATE TABLE tb_Venda (
-	id SMALLINT PRIMARY KEY IDENTITY(1,1),
-	data_Venda DATE
-)
 
 --Cria tabela Compra
 CREATE TABLE tb_Compra (
 	id SMALLINT PRIMARY KEY IDENTITY(1,1),
 	nome_Produto VARCHAR(100),
 	preco_unitario MONEY NOT NULL,
-	descricao VARCHAR(100)
+	quantidade SMALLINT,
+	descricao VARCHAR(100),
+	data_compra DATE
 )
 
 --Cria tabela Marca
 CREATE TABLE tb_Marca (
 	id SMALLINT PRIMARY KEY IDENTITY(1,1),
-	nome_Marca	VARCHAR(50)
-	
+	nome_Marca	VARCHAR(50),
 
 )
 
@@ -37,6 +35,15 @@ CREATE TABLE tb_Marca (
 CREATE TABLE tb_Categoria(
 	id SMALLINT PRIMARY KEY IDENTITY(1,1),
 	categoria VARCHAR(50) NOT NULL
+)
+
+--Cria a tabela Venda
+CREATE TABLE tb_Venda (
+	id SMALLINT PRIMARY KEY IDENTITY(1,1),
+	data_Venda DATE,
+	id_Cliente SMALLINT,
+	CONSTRAINT fk_Venda FOREIGN KEY (id_Cliente) 
+	 REFERENCES tb_Cliente(id)
 )
 
 --Cria a tabela Pagamento
@@ -48,9 +55,6 @@ CREATE TABLE  tb_Pagamento (
 	id_Venda SMALLINT,
 	CONSTRAINT fk_Pagamento_Cliente FOREIGN KEY (id_Cliente)
 	 REFERENCES tb_Cliente(id),
-	CONSTRAINT fk_Pagamento_Venda FOREIGN KEY (id_Venda)
-	 REFERENCES tb_Venda(id) 
-
 )
 
 --Cria a tabela tipo de Pagamento
@@ -72,14 +76,6 @@ CREATE TABLE tb_Item_Venda (
 	 REFERENCES tb_Venda(id)
 )
 
-CREATE TABLE tb_Item_Compra(
-	id SMALLINT PRIMARY KEY IDENTITY(1,1),
-	quantidade BIGINT NOT NULL,
-	id_Compra SMALLINT,
-	CONSTRAINT fk_Item_Compra FOREIGN KEY (id_Compra)
-	 REFERENCES tb_Compra(id)
-
-)
 
 --Cria tabela Produto
 CREATE TABLE tb_Produto(
@@ -90,7 +86,7 @@ CREATE TABLE tb_Produto(
 	id_Item_Venda SMALLINT,
 	id_Compra SMALLINT,
 	id_Categoria SMALLINT, 
-	id_Marca SMALLINT,
+	id_Marca SMALLINT,	
 	CONSTRAINT fk_Produto_Item_Venda FOREIGN KEY (id_Item_Venda)
 	 REFERENCES tb_Item_Venda(id),
 	CONSTRAINT fk_Produto_Compra FOREIGN KEY (id_Compra)
