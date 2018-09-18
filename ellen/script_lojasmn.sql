@@ -7,7 +7,7 @@ create table cliente
 
 create table telefone
 	(id smallint primary key identity(1,1),
-	nemuro numeric(11) not null,
+	numero numeric(11) not null,
 	idcliente smallint not null,
 	constraint fk_telefone_cliente foreign key (idcliente) references cliente(id));
 
