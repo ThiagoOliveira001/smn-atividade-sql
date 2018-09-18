@@ -1,3 +1,4 @@
+--Script doceria
 create database candy_shop
 use candy_shop
 
