@@ -11,16 +11,16 @@ CREATE TABLE produto(
 	preco_venda decimal(10,2) NOT NULL,
 	imagem varchar(50),
 	id_categoria integer,
-	constraint fk_produto_categoria foreign key(id_categoria) references categoria
+	id_marca integer,
+	constraint fk_produto_categoria foreign key(id_categoria) references categoria,
+	constraint fk_produto_marca foreign key(id_marca) references marca
 );
 
 --CRIA A TABELA CATEGORIA
 CREATE TABLE categoria(
 	id integer primary key identity,
 	nome varchar(50) NOT NULL,
-	descricao varchar(100),
-	id_marca integer,
-	constraint fk_categoria_marca foreign key(id_marca) references marca
+	descricao varchar(100)	
 );
 
 --CRIA A TABELA MARCA
@@ -61,11 +61,13 @@ CREATE TABLE venda(
 	id integer primary key identity,
 	data_venda date NOT NULL,
 	data_pagamento date,
+	status_pagamento bit,
 	id_pessoa integer,
 	id_tipoPagamento integer,
 	constraint fk_venda_pessoa foreign key(id_pessoa) references pessoa,
 	constraint fk_venda_tipoPagamento foreign key(id_tipoPagamento) references tipoPagamento
 );
+
 
 --CRIA A TABELA TIPO DE PAGAMENTO
 CREATE TABLE tipoPagamento(
