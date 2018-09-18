@@ -77,7 +77,7 @@ CREATE TABLE shop.financeiro(
 GO
 CREATE TABLE shop.itemvenda(
 	idproduto INT CONSTRAINT fk_itemvenda_produto FOREIGN KEY REFERENCES shop.produto(id) NOT NULL,
-	idcompra INT CONSTRAINT fk_itemvenda_compra FOREIGN KEY REFERENCES shop.compra(id) NOT NULL,
+	idvenda INT CONSTRAINT fk_itemvenda_venda FOREIGN KEY REFERENCES shop.venda(id) NOT NULL,
 	qtde INT NOT NULL,
 	valor NUMERIC(5,2) NOT NULL,
 	CONSTRAINT pk_itemvenda PRIMARY KEY(idproduto,idcompra)
@@ -90,3 +90,4 @@ CREATE TABLE shop.itemcompra(
 	valor NUMERIC(5,2) NOT NULL 
 )
 GO
+
