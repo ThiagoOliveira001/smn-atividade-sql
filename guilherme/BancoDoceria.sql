@@ -35,7 +35,7 @@ CREATE TABLE compra ( --criando tabela
 id	INTEGER NOT NULL IDENTITY,
 valorPago	DECIMAL(10,2) NOT NULL,
 dataCompra	DATE NOT NULL,
-notaFiscal	BIGINT NOT NULL,
+notaFiscal	BIGINT NOT NULL UNIQUE,
 idProduto	INTEGER NOT NULL,
 PRIMARY KEY(id),
 FOREIGN KEY(idProduto) REFERENCES produto(id)
