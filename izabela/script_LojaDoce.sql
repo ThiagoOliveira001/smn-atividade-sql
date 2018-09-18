@@ -23,6 +23,7 @@ create table tb_Produto(
 	references tb_Categoria 
 )
 
+
 create table tb_Compra(
 	id_compra int primary key identity,
 	data_compra date not null, 
@@ -50,6 +51,7 @@ create table tb_Cliente(
 	cpf numeric(11) not null,
 	cargo varchar (100) not null
 )
+alter table tb_Cliente add telefone bigint not null
 
 create table tb_Venda(
 	id_venda int primary key identity,
@@ -73,3 +75,4 @@ create table tb_Item(
 	constraint fk_id_venda foreign key(id_venda)
 	references tb_Venda
 )
+
