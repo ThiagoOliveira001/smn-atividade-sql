@@ -14,7 +14,7 @@ CREATE TABLE tb_Cliente (
 --Cria a tabela Venda
 CREATE TABLE tb_Venda (
 	id SMALLINT PRIMARY KEY IDENTITY(1,1),
-	valor_total MONEY
+	data_Venda DATE
 )
 
 --Cria tabela Compra
@@ -22,9 +22,7 @@ CREATE TABLE tb_Compra (
 	id SMALLINT PRIMARY KEY IDENTITY(1,1),
 	nome_Produto VARCHAR(100),
 	preco_unitario MONEY NOT NULL,
-	descricao VARCHAR(100),
-	quantidade BIGINT 
-
+	descricao VARCHAR(100)
 )
 
 --Cria tabela Marca
@@ -45,6 +43,7 @@ CREATE TABLE tb_Categoria(
 CREATE TABLE  tb_Pagamento (
 	id SMALLINT PRIMARY KEY IDENTITY(1,1),
 	data_pagamento DATE,
+	status_Pagamento BIT,
 	id_Cliente SMALLINT,
 	id_Venda SMALLINT,
 	CONSTRAINT fk_Pagamento_Cliente FOREIGN KEY (id_Cliente)
@@ -71,6 +70,15 @@ CREATE TABLE tb_Item_Venda (
 	id_Venda SMALLINT,
 	CONSTRAINT fk_item_Venda_Venda FOREIGN KEY (id_Venda)
 	 REFERENCES tb_Venda(id)
+)
+
+CREATE TABLE tb_Item_Compra(
+	id SMALLINT PRIMARY KEY IDENTITY(1,1),
+	quantidade BIGINT NOT NULL,
+	id_Compra SMALLINT,
+	CONSTRAINT fk_Item_Compra FOREIGN KEY (id_Compra)
+	 REFERENCES tb_Compra(id)
+
 )
 
 --Cria tabela Produto
