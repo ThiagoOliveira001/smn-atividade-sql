@@ -1,13 +1,13 @@
 USE LojaDoces
 INSERT INTO Cliente(NomeCliente, Sexo, DataNascimento, Ativo)
 VALUES				('Godofredo alvez da silva', 'M', '19960815', 1),
-					('Fábio alvez da silva', 'M', '19960815', 1),
+					('FÃ¡bio alvez da silva', 'M', '19960815', 1),
 					('Alberto Gomez pereira', 'M', '19951020', 1),
 					('Gertrudez Fabia', 'F', '19891015', 0),
 					('Maria Gertrudez', 'F', '19450815', 1),
 					('Fabio alvez Pereira', 'M', '19930815', 0),
 					('Roberto Carlos da silva', 'M', '19850815', 1),
-					('Pelé do Santos', 'M', '19971215', 0),
+					('PelÃ© do Santos', 'M', '19971215', 0),
 					('Silvia Algusta', 'F', '19831015', 1),
 					('Fernando di Paula', 'M', '19450515', 0),
 					('Zico do Brasil', 'M', '19500915', 1),
@@ -16,9 +16,9 @@ VALUES				('Godofredo alvez da silva', 'M', '19960815', 1),
 					('Godofredo alvez', 'M', '19960715', 1),
 					('Ian da Cunha', 'M', '19940820', 1),
 					('Gabriel cachueira', 'M', '19320815', 1),
-					('Ronaldinho Gaúcho', 'M', '19850815', 1),
+					('Ronaldinho GaÃºcho', 'M', '19850815', 1),
 					('Ronaldinho Fenomeno', 'M', '19821017', 1),
-					('Júlia Bastos', 'M', '19450619', 1),
+					('JÃºlia Bastos', 'M', '19450619', 1),
 					('Marcos Pereira', 'M', '19960815', 1)
 
 
@@ -27,7 +27,7 @@ Select * from Cliente
 
 Select * from Marca
 INSERT INTO Marca
-Values ('Energético');
+Values ('EnergÃ©tico');
 
 Select * from TipoProduto
 
@@ -36,7 +36,7 @@ Values				(5, 3, 'Antartica garrafinha', 5.20, 8.50, 10),
 					(5, 3, 'Antartica 2 litros', 10.20, 15.50, 100),
 					(5, 3, 'Antartica 1 litro', 5.20, 9.50, 15),
 					(32, 3, 'Monster lata', 4.20, 8.50, 100),
-					(32, 3, 'Monster Latão', 6.20, 9.70, 10),
+					(32, 3, 'Monster LatÃ£o', 6.20, 9.70, 10),
 					(32, 3, 'Monster garrafa', 15.20, 28.50, 20),
 					(4, 3, 'Coca Cola 20 litros', 20.20, 28.50, 15),
 					(4, 3, 'Coca Cola 50 litros', 50.20, 58.50, 150),
@@ -120,7 +120,7 @@ inner join Produto on Cliente.IdCliente = Produto.IdProduto
 
 
 INSERT INTO VendaItem(IdVenda, IdProduto, Quantidade)
-Values
+Values			(307, 93, 321),
 			(291, 50, 10),
 			(216, 51, 80),
 			(221, 50, 50),
