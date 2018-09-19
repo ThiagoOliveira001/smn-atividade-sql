@@ -3,7 +3,7 @@ GO
 SELECT TOP(10)
 	   c.NomeCliente,
 	   c.Sexo,
-	   COUNT(vi.IdVendaItem) AS Itens,
+	   SUM(vi.Quantidade) AS Itens,
 	   MIN(v.DataVenda) AS 'Primeira Venda'
 FROM Cliente AS c
 	INNER JOIN Venda AS v ON v.IdCliente = c.IdCliente
