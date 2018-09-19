@@ -72,7 +72,7 @@ VALUES ('Lanche Natural')
 
 SELECT * FROM Marca 
 
-SELECT * FROM Produto 
+SELECT * FROM Produto WHERE IdMarca = 37
 
 SELECT * FROM TipoProduto 
 

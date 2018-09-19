@@ -61,7 +61,6 @@ create table pgto
 	constraint fk_pgto_venda foreign key (idvenda) references venda(id),
 	constraint fk_pgto_cliente foreign key (idcliente) references cliente(id));
 
-
 	create table tipopgto
 	(id smallint primary key identity (1,1),
 	tipo varchar(50) not null,
