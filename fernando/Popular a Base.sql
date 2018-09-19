@@ -187,4 +187,4 @@ VALUES				(979,	357,	1),
 					(1029,	390,	1)
 					
 
-					SELECT * FROM Venda
+					
