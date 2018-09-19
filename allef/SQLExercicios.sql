@@ -5,10 +5,10 @@ use LojaDoces
 
 insert into Cliente (NomeCliente, Sexo, DataNascimento, Ativo)
 values
-('Jo„o Lopes','M','10-05-2000',0),
+('Jo√£o Lopes','M','10-05-2000',0),
 ('Willian Mulia','M','05-20-1990',1),
 ('Otavio Fricatti','M', '11-25-1995',0),
-('Jaime JosÈ','M', '03-20-1980',1),
+('Jaime Jos√©','M', '03-20-1980',1),
 ('Paulo Capel','M', '10-05-1993',0),
 ('Caroline Moura','F', '04-20-1994',1),
 ('Thiago Lima','M', '09-07-1970', 0),
@@ -107,7 +107,6 @@ Values
 (136, '09-03-2018', NULL),
 (136, '09-03-2018', NULL)
 
-select*from Venda
 
 insert into VendaItem (IdVenda, IdProduto, Quantidade)
 Values
