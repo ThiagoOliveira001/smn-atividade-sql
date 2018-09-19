@@ -1,0 +1,10 @@
+-- 7 listar o nome, sexo e status de todos os clientes que não compraram
+
+SELECT  c.NomeCliente as Nome,
+		c.Sexo as Sexo, 
+		c.Ativo as statuss, 
+		v.IdCliente 
+	FROM Cliente as c
+	left join Venda as v
+		on v.IdCliente = c.IdCliente
+	WHERE v.IdCliente is null

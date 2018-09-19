@@ -1,0 +1,9 @@
+-- listar o nome, marca e quantidade em estoque de todos os produtos do tipo chocolate
+
+
+Select Produto.NomeProduto, Marca.NomeMarca, Produto.QuantidadeEstoque FROM Produto 
+Inner join Marca 
+on Produto.IdMarca = Marca.IdMarca 
+inner join TipoProduto
+ON Produto.IdTipoProduto = TipoProduto.IdTipoProduto
+WHERE TipoProduto.IdTipoProduto = 5

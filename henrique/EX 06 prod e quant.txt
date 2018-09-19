@@ -1,0 +1,10 @@
+--06 - Listar produtos e quantidade vendidos em 2018 (nome e quantidade)
+
+
+Select	vi.IdProduto,
+		sum (vi.Quantidade) as quantidade, 
+		p.NomeProduto 
+	FROM VendaItem vi
+	inner join Produto p
+		on vi.IdProduto = p.IdProduto
+	group by vi.IdProduto,p.NomeProduto

@@ -1,0 +1,4 @@
+--listar o nome, sexo e status(ativo) de todos os clientes que fazem aniversario em abril
+
+Select Cliente.NomeCliente, Cliente.Sexo, Cliente.Ativo, Cliente.DataNascimento From Cliente 
+WHERE Cliente.Ativo = 1 AND MONTH(Cliente.DataNascimento) = 4
