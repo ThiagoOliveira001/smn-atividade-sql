@@ -1,0 +1,10 @@
+--listar o nome do produto, marca, tipo, nome do cliente, data da compra e data de pagamento de todos os produtos pagos em janeiro de 2018
+
+Select Produto.NomeProduto, Marca.NomeMarca, TipoProduto.NomeTipoProduto, Cliente.NomeCliente,
+Venda.DataVenda, Venda.DataPagamento FROM VendaItem
+inner join Venda on VendaItem.IdVenda = Venda.IdVenda
+Inner join Cliente on Venda.IdCliente = Cliente.IdCliente
+Inner join Produto on VendaItem.IdProduto = Produto.IdProduto
+inner join Marca on Produto.IdMarca = Marca.IdMarca
+inner join TipoProduto on Produto.IdTipoProduto = TipoProduto.IdTipoProduto
+WHERE YEAR(Venda.DataPagamento) = 2018 AND MONTH(Venda.DataPagamento) = 1;
