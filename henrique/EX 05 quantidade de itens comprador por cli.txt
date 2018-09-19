@@ -1,0 +1,8 @@
+Select Resultado.nomedoscliente, Count (Resultado.quan) as quant FROM 
+(Select Cliente.NomeCliente as nomedoscliente, VendaItem.IdProduto as quan FROM VendaItem
+Inner join Venda on VendaItem.IdVenda = Venda.IdVenda
+inner join Cliente on Venda.IdCliente = Cliente.IdCliente
+WHERE YEAR(Venda.DataVenda) = 2018
+Group by Cliente.NomeCliente, VendaItem.IdProduto) as Resultado
+Group by Resultado.nomedoscliente
+Order by Resultado.nomedoscliente
