@@ -7,10 +7,12 @@
 -- Produto.QuantidadeEstoque
 USE LojaDoces
 
-SELECT Produto.NomeProduto, Marca.NomeMarca, Produto.QuantidadeEstoque 
-FROM Produto 
-INNER JOIN Marca 
-ON Produto.IdMarca = Marca.IdMarca 
-INNER JOIN TipoProduto
-ON Produto.IdTipoProduto = TipoProduto.IdTipoProduto
-WHERE TipoProduto.IdTipoProduto = 5
+SELECT	p.NomeProduto,
+		m.NomeMarca,
+		p.QuantidadeEstoque 
+	FROM Produto p
+	INNER JOIN Marca m
+		ON p.IdMarca = m.IdMarca 
+	INNER JOIN TipoProduto t
+		ON p.IdTipoProduto = t.IdTipoProduto
+	WHERE t.IdTipoProduto = 5
