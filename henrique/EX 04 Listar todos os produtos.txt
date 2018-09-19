@@ -1,0 +1,10 @@
+--4 listar o nome do produto, marca, valor de venda, valor de compra e quantidade de todos os produtos
+
+Select  p.NomeProduto, 
+		m.NomeMarca, 
+		p.ValorCompra, 
+		p.ValorVenda, 
+		p.QuantidadeEstoque
+	FROM Produto p 
+	INNER JOIN Marca m
+		on m.IdMarca = p.IdMarca
