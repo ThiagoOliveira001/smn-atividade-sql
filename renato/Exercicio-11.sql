@@ -5,15 +5,10 @@
 -- Produto.QuantidadeEStoque
 
 USE LojaDoces
-SELECT	Result.NomeMarca,
-		SUM(Result.QuantidadeEstoque) AS Qtde
-		FROM
-			(SELECT	m.NomeMarca,
-					p.QuantidadeEstoque
-					FROM Marca m
-					INNER JOIN Produto p
-						ON m.IdMarca = p.IdMarca
-					) AS Result
-		GROUP BY Result.NomeMarca
-		ORDER BY Qtde DESC
-		
+SELECT	m.NomeMarca,
+		SUM(p.QuantidadeEstoque) AS QtdeEstoque
+		FROM Marca m
+		INNER JOIN Produto p
+			ON m.IdMarca = p.IdMarca
+		GROUP BY m.NomeMarca
+		ORDER BY QtdeEstoque DESC
