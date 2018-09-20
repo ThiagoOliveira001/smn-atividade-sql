@@ -5,10 +5,10 @@ use LojaDoces
 
 insert into Cliente (NomeCliente, Sexo, DataNascimento, Ativo)
 values
-('Jo√£o Lopes','M','10-05-2000',0),
+('Jo„o Lopes','M','10-05-2000',0),
 ('Willian Mulia','M','05-20-1990',1),
 ('Otavio Fricatti','M', '11-25-1995',0),
-('Jaime Jos√©','M', '03-20-1980',1),
+('Jaime JosÈ','M', '03-20-1980',1),
 ('Paulo Capel','M', '10-05-1993',0),
 ('Caroline Moura','F', '04-20-1994',1),
 ('Thiago Lima','M', '09-07-1970', 0),
@@ -107,6 +107,7 @@ Values
 (136, '09-03-2018', NULL),
 (136, '09-03-2018', NULL)
 
+select*from Venda
 
 insert into VendaItem (IdVenda, IdProduto, Quantidade)
 Values
@@ -266,24 +267,114 @@ inner join Venda
 on VendaItem.IdVenda = Venda.IdVenda
 inner join Cliente
 on  Venda.IdCliente = Cliente.IdCliente
-group by Cliente.NomeCliente, Produto.NomeProduto, Marca.NomeMarca,  
-Produto.ValorVenda, Produto.ValorCompra, Cliente.IdCliente
+where NomeMarca like 'Pastel%'
 
--- EXERCICIO 10 EM DESENVOLVIMENTO
+select NomeProduto ,MAX(ValorVenda) from produto
+Group by NomeProduto
 
-
-
-
+-- EXERCICIO 10
 
 
+select p.NomeProduto, m.NomeMarca, p.ValorVenda, p.ValorCompra, ap.DataVenda, ap.NomeCliente
+from Produto as p
+INNER JOIN Marca as m 
+on m.IdMarca = p.IdMarca
+CROSS APPLY
+( select top(1) v.DataVenda, c.NomeCliente from Venda as v
+INNER JOIN Cliente as c on c.IdCliente = v.IdCliente
+INNER JOIN VendaItem as vi on vi.IdVenda = v.IdVenda
+where vi.IdProduto = p.IdProduto
+order by v.DataVenda desc ) ap
+order by p.NomeProduto
+
+-- Exercicio 11
+
+select Marca.NomeMarca, SUM(Produto.QuantidadeEstoque) as QuantidadeTotal from Marca
+inner join Produto
+on Marca.IdMarca = Produto.IdMarca
+group by Marca.NomeMarca
+order by QuantidadeTotal DESC
+
+-- Exercicio 12
+
+select TOP 10 NomeProduto,nomeMarca, SUM((Produto.ValorVenda - Produto.ValorCompra) * Quantidade) as Lucro,
+sum(VendaItem.Quantidade) as quantidaTotal from Venda
+inner join VendaItem
+on Venda.IdVenda = VendaItem.IdVenda
+inner join Produto
+on VendaItem.IdProduto = Produto.IdProduto
+inner join Marca
+on Produto.IdMarca = Marca. IdMarca
+where DataPagamento is not null
+group by NomeProduto, nomeMarca
+order by lucro DESC
+
+-- Exercicio 13
+
+select TOP 15 Cliente.NomeCliente, Cliente.Sexo, Cliente.DataNascimento, SUM(VendaItem.Quantidade)
+as QuantidadeTotalComprada from Cliente
+inner join Venda
+on Cliente.IdCliente = Venda.IdCliente
+inner join VendaItem
+on Venda.IdVenda = VendaItem.IdVenda
+where DataPagamento is not null
+group by Cliente.NomeCliente, Cliente.Sexo, Cliente.DataNascimento
+order by QuantidadeTotalComprada DESC
+
+-- Exercicio 14
+
+select NomeProduto from Produto
+where NomeProduto like '%cola%'
+
+-- Exercicio 15
+
+select NomeCliente, Sexo, DataNascimento from Cliente
+where Ativo = 1
+
+-- Exercicio 16
+
+select Produto.NomeProduto, TipoProduto.NomeTipoProduto, Marca.NomeMarca, Produto.ValorVenda, IdVenda
+from Produto
+inner join TipoProduto
+on Produto.IdTipoProduto = TipoProduto.IdTipoProduto
+inner join Marca
+on Produto.IdMarca = Marca.IdMarca
+left join VendaItem
+on Produto.IdProduto = VendaItem.IdProduto
+where IdVenda is null
+
+-- exercicio 17
+
+select TOP 10 Produto.NomeProduto, Marca.NomeMarca, Produto.ValorCompra, Produto.ValorVenda, 
+Produto.QuantidadeEstoque from Produto
+inner join Marca
+on Produto.IdMarca = Marca.IdMarca
+inner join VendaItem
+on Produto.IdProduto = VendaItem.IdProduto
+inner join Venda
+on VendaItem.IdVenda = Venda.IdVenda
+where DataPagamento is not null
+Group by Produto.NomeProduto, Marca.NomeMarca, Produto.ValorCompra, Produto.ValorVenda, 
+Produto.QuantidadeEstoque
+order by SUM(Quantidade) DESC
 
 
+-- Exercicio 18
 
+SELECT NomeMarca, SUBSTRING(Produtos,1,LEN(Produtos) - 1) as NomesProdutos FROM Marca
+CROSS APPLY (SELECT (Produto.NomeProduto + ', ')
+FROM Produto
+WHERE Produto.IdMarca = Marca.IdMarca FOR XML PATH('')) ap ( Produtos )
+order by NomeMarca DESC
 
+-- Exercicio 19
 
+select format(DataVenda,'MM/yyyy') as Alvo,
+	count(case when DataPagamento is not null then 1 else null end) as VendasPagas,
+	count(case when DataPagamento is null then 1 else null end) as VendasNaoPagas
+from Venda
+group by format(DataVenda,'MM/yyyy'), format(DataVenda, 'yyyy')
+order by format(DataVenda, 'yyyy') asc
 
-
-
-
-
+-- Exercicio 20
 
