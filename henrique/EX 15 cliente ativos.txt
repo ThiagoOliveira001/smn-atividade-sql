@@ -1,0 +1,4 @@
+-- 15 Listar todos os clientes ativos
+
+Select Cliente.NomeCliente, Cliente.Ativo FROM Cliente 
+WHERE Cliente.Ativo = 1
