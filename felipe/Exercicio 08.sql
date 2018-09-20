@@ -4,7 +4,7 @@ go
 select TOP 10 
 		c.NomeCliente,
 		c.Sexo,
-		COUNT(vi.IdVendaItem) as Produtos,
+		SUM(vi.IdVendaItem) as Produtos,
 		MIN(v.DataVenda) as MenorData
 	from Cliente as c
 	inner join venda as v on v.IdCliente = c.IdCliente
