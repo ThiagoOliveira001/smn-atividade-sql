@@ -3,6 +3,7 @@ GO
 SELECT TOP(10)
 	   p.NomeProduto,
        m.NomeMarca,
+	   SUM(vi.Quantidade) AS Qtde,
 	   SUM(vi.Quantidade * (p.ValorVenda - p.ValorCompra)) AS Lucro
 FROM Produto AS p
 	INNER JOIN Marca AS m ON m.IdMarca = p.IdMarca
