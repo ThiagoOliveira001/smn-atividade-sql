@@ -1,0 +1,7 @@
+--18 - Listar marcas e todos os seus produtos
+-- 18 Listar o nome da marca e o nome de todos os seus produtos separados por ","
+
+Select Marca.NomeMarca +' , '+ Produto.NomeProduto as produtos
+FROM Produto
+INNER JOIN Marca
+	 on Produto.IdMarca = Marca.IdMarca

@@ -1,0 +1,19 @@
+-- 20 - Listar todos os clientes e seu produto favorito 
+-- 20 listar o nome do cliente, sexo, idade e nome do produto favorito (mais comprado pelo cliente), caso não possua deixar em branco
+*/
+SELECT  c.NomeCliente,
+		c.Sexo,
+		(DATEDIFF(YEAR, c.DataNascimento, GETDATE())) as Idade,
+		x.NomeProduto,
+		x.quantidade
+	FROM Cliente c
+	OUTER APPLY (SELECT top 1 vi.Quantidade as quantidade, p.NomeProduto  
+			FROM VendaItem vi 
+			INNER JOIN Venda v
+				ON c.IdCliente = v.IdCliente
+			INNER JOIN Produto p
+				ON vi.IdProduto = p.IdProduto
+			WHERE vi.IdVenda = v.IdVenda
+			ORDER BY vi.Quantidade desc
+		) as x	
+		
