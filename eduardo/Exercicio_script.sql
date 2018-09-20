@@ -1,4 +1,4 @@
-
+use LojaDoces
 
 
 				--EXECICIO 1
@@ -88,11 +88,15 @@ SELECT m.NomeMarca, (Sum(p.ValorVenda)- sum(p.ValorCompra)) * sum(vi.Quantidade)
 
  -- EXERCICIO 10 
  
- 
- 
 -- Listar todos os produtos e data da ultima compra
 --listar o nome do produto, marca, valor de venda, valor de compra, nome do ultimo comprador e data da ultima compra
 
-SELECT DISTINCT p.NomeProduto, m.NomeMarca, p.ValorCompra, p.ValorVenda FROM Produto AS p
-INNER JOIN Marca AS m ON m.IdMarca = p.IdMarca
-GROUP BY p.NomeProduto, m.NomeMarca, p.ValorVenda, p.ValorCompra
+SELECT DISTINCT NomeProduto, NomeMarca,Produto.ValorCompra, Produto.ValorVenda FROM Produto
+CROSS APPLY (select top(1) cl.NomeCliente, m.nomeMarca, ValorVenda, ValorCompra, v.DataVenda FROM VendaItem
+INNER JOIN Marca AS m ON m.IdMarca = Produto.IdMarca
+inner join venda as v ON v.IdVenda = VendaItem.IdVenda
+INNER JOIN Cliente as cl ON cl.IdCliente = v.IdCliente
+
+where VendaItem.IdProduto = Produto.IdProduto
+order by DataVenda DESC) as tabela
+
