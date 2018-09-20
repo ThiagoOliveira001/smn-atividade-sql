@@ -1,0 +1,12 @@
+Use LojaDoces
+Select  top 15 c.NomeCliente, 
+		c.Sexo, 
+		c.DataNascimento, 
+		SUM (vi.Quantidade) as quant
+	FROM Cliente c 
+		INNER JOIN Venda v
+			on v.IdCliente = c.IdCliente
+		INNER JOIN VendaItem vi
+			ON vi.IdVenda = v.IdVenda
+		GROUP BY c.NomeCliente, c.Sexo, c.DataNascimento
+		ORDER BY quant desc

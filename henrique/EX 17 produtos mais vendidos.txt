@@ -1,0 +1,16 @@
+-- 17 - Listar os produtos mais vendidos
+-- 17 listar o nome, marca, valor de compra, valor de venda e quantidade em estoque dos 10 produtos mais vendidos
+
+Select top 10
+		 p.NomeProduto as nome,
+		 m.NomeMarca as marca,
+		 p.ValorCompra as COMPRA,
+		 p.ValorVenda as VENDA,
+		 p.QuantidadeEstoque as Estoque,
+		 vi.Quantidade as QNTD_vend
+	FROM Produto p
+		INNER JOIN Marca m
+			On p.IdMarca = m.IdMarca
+		INNER JOIN VendaItem vi
+			ON p.IdProduto = vi.IdProduto
+		ORDER BY QNTD_vend desc
