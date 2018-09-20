@@ -1,7 +1,7 @@
-SELECT C.NomeCliente, C.Sexo, FLOOR(DATEDIFF(DAY, DataNascimento, GETDATE()) / 365.25) AS Idade, CA.NomeProduto, CA.Qtd
+SELECT C.NomeCliente, C.Sexo, FLOOR(DATEDIFF(DAY, DataNascimento, GETDATE()) / 365.25) AS Idade, ISNULL(CA.NomeProduto, ' ') AS 'Produto Favorito'
 	FROM Cliente AS C
-	CROSS APPLY(
-		SELECT TOP 1 P.NomeProduto, SUM(VI.Quantidade) AS Qtd
+	OUTER APPLY(
+		SELECT TOP 1 P.NomeProduto
 			FROM Produto AS P
 			INNER JOIN VendaItem AS VI
 			ON P.IdProduto = VI.IdProduto
