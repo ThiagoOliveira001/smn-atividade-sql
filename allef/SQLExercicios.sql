@@ -406,3 +406,27 @@ order by total DESC
 
 -- Exercicio 22
 
+select top(10) Cliente.NomeCliente, Cliente.Sexo,
+ISNULL(AVG(DATEDIFF(day,Venda.DataVenda,Venda.DataPagamento)),0) as Tempo from Cliente
+inner join Venda
+ON Venda.IdCliente = Cliente.IdCliente
+group by Cliente.NomeCliente, Cliente.Sexo
+order by Tempo desc
+
+-- Exercicio 23
+
+
+
+
+
+-- Exercicio 24
+Select FORMAT(Venda.DataVenda, 'yyyy/MM') as DataD, 
+AVG (VendaItem.Quantidade) as MediaQuant, 
+CAST(AVG(Produto.ValorVenda * VendaItem.Quantidade) as numeric (5,2)) as MediaVal
+FROM Venda
+Inner Join VendaItem
+on Venda.IdVenda = VendaItem.IdVenda
+Inner join Produto
+on VendaItem.IdProduto = Produto.IdProduto
+GROUP BY FORMAT(Venda.DataVenda, 'yyyy/MM')
+Order by DataD desc
