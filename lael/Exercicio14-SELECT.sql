@@ -3,6 +3,6 @@
 
 SELECT P.NomeProduto 
 	FROM Produto AS P
-WHERE P.NomeProduto LIKE '_____Cola%'
+WHERE P.NomeProduto LIKE '%Cola%'
 
 

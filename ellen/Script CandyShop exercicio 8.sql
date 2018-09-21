@@ -12,3 +12,6 @@ inner join VendaItem vi
  
 	where DataPagamento is null
 	group by c.NomeCliente, c.sexo,v.DataPagamento, v.DataVenda  
+
+
+
