@@ -64,8 +64,8 @@ FROM Produto
 WHERE YEAR(Venda.DataVenda) = 2018
 GROUP BY(Produto.NomeProduto);
 
---07 - Listar Todos os clientes que n„o compraram
---listar o nome, sexo e status de todos os clientes que n„o compraram
+--07 - Listar Todos os clientes que n√£o compraram
+--listar o nome, sexo e status de todos os clientes que n√£o compraram
 SELECT Cliente.NomeCliente, Cliente.Sexo, Cliente.Ativo, Venda.DataVenda
 	FROM Cliente
 	LEFT JOIN 
@@ -73,7 +73,7 @@ SELECT Cliente.NomeCliente, Cliente.Sexo, Cliente.Ativo, Venda.DataVenda
 WHERE Venda.IdCliente IS NULL;
 
 --08 - Listar os top 10 inadimplentes
---listar o nome do cliente, sexo, quantidade de itens n„o pagos e data da primeira compra n„o paga
+--listar o nome do cliente, sexo, quantidade de itens n√£o pagos e data da primeira compra n√£o paga
 SELECT TOP 10 Cliente.NomeCliente, Cliente.Sexo, SUM(VendaItem.Quantidade), Venda.DataVenda, Venda.DataPagamento
 	FROM Cliente
 	INNER JOIN 
@@ -158,8 +158,8 @@ SELECT C.NomeCliente, C.Sexo, C.DataNascimento, C.Ativo
 	FROM Cliente AS C
 	WHERE C.Ativo = '1';
 
---16 - Listar todos os produtos que n„o foram vendidos
---listar o nome, tipo, marca e valor de venda de todos os produtos que n„o foram vendidos
+--16 - Listar todos os produtos que n√£o foram vendidos
+--listar o nome, tipo, marca e valor de venda de todos os produtos que n√£o foram vendidos
 SELECT P.NomeProduto, P.ValorVenda, TP.NomeTipoProduto, M.NomeMarca 
 FROM Produto AS P
 	INNER JOIN
@@ -192,9 +192,9 @@ ORDER BY NomeMarca DESC
 
 
 --19 - Listar o total de vendas por mes
---listar o mes/ano,  a quantidade total de vendas (pagas) e a quantidade total de vendas (n„o pagas) no mes/ano de referencia
+--listar o mes/ano,  a quantidade total de vendas (pagas) e a quantidade total de vendas (n√£o pagas) no mes/ano de referencia
 select FORMAT ( DATAVENDA, 'MM/yyyy') AS DATAS  ,
-		SUM(CASE WHEN DataPagamento IS null THEN 1 ELSE  0 END) as ProdutosN„oPagos,
+		SUM(CASE WHEN DataPagamento IS null THEN 1 ELSE  0 END) as ProdutosN√£oPagos,
 		SUM(CASE WHEN DataPagamento IS not null THEN 1 ELSE 0 END) as ProdutosPagos
 	FROM Venda
 	GROUP BY FORMAT ( DataVenda, 'MM/yyyy'),FORMAT ( DATAVENDA, 'yyyy')
@@ -203,7 +203,7 @@ select FORMAT ( DATAVENDA, 'MM/yyyy') AS DATAS  ,
 
 
 --20 - Listar todos os clientes e seu produto favorito
---listar o nome do cliente, sexo, idade e nome do produto favorito (mais comprado pelo cliente), caso n„o possua deixar em branco
+--listar o nome do cliente, sexo, idade e nome do produto favorito (mais comprado pelo cliente), caso n√£o possua deixar em branco
 SELECT c.NomeCliente,
 	   c.Sexo,
 	   ISNULL(ap.NomeProduto,'') AS NomeProduto,
@@ -233,7 +233,7 @@ SELECT (
 	FORMAT(
 		(CAST(ap.Clientes AS NUMERIC) / CAST((SELECT COUNT(*) FROM Cliente) AS NUMERIC)) * 100,
 		'#0.00'
-	) +  '% Comprados pelos usu·rios')
+	) +  '% Comprados pelos usu√°rios')
 FROM Produto AS p
 	INNER JOIN Marca AS m ON m.IdMarca = p.IdMarca
 CROSS APPLY(
@@ -277,11 +277,15 @@ WHERE v2.IdVenda = v.IdVenda) as x
 GROUP BY V.IdVenda, v.DataVenda, c.NomeCliente, x.ValorTotal
 ORder BY NomeCliente
 
---24 - Listar mÈdia mensal de vendas
---listar mÍs/ano e mÈdia mensal de vendas no mÍs/ano de referencia. MÈdia em valor e quantidade.
+--24 - Listar m√©dia mensal de vendas
+--listar m√™s/ano e m√©dia mensal de vendas no m√™s/ano de referencia. M√©dia em valor e quantidade.
 
 SELECT
+<<<<<<< HEAD
 	FORMAT(V.DataVenda,'mm/yyyy') as ReferÍncia,
+=======
+	FORMAT(V.DataVenda,'mm/yyyy') as Refer√™ncia,
+>>>>>>> 10ea0299718e8a82328ed84fbf8bdbbc2ec95ec5
 	AVG(VI.Quantidade) as media_quantidade,
 	CAST(AVG(VI.Quantidade * P.ValorVenda) AS numeric (5,2)) as media_valor
 FROM
@@ -289,4 +293,8 @@ FROM
 		V.IdVenda = VI.IdVenda
 	INNER JOIN Produto AS P ON
 		VI.IdProduto = P.IdProduto
+<<<<<<< HEAD
 	GROUP BY FORMAT(V.DataVenda,'mm	/yyyy') 
+=======
+	GROUP BY FORMAT(V.DataVenda,'mm/yyyy') 
+>>>>>>> 10ea0299718e8a82328ed84fbf8bdbbc2ec95ec5

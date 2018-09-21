@@ -48,7 +48,7 @@ INSERT INTO Produto(IdMarca,IdTipoProduto,NomeProduto,QuantidadeEstoque,ValorCom
 		(21,1,'Paçoca',42,0.85,1.25);
 
 
-CREATE PROCEDURE populaVendas
+CREATE PROCEDURE VariasVendas
 	AS
 		BEGIN
 			DECLARE @numeroItens INT,@random INT, @count INT,@countItem INT,@venda INT;
