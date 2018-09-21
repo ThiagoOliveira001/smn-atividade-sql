@@ -4,10 +4,12 @@
 USE LojaDoces
 
 SELECT	p.NomeProduto,
-		vi.Quantidade
+		SUM(vi.Quantidade) AS Qtde
 		FROM VendaItem vi
 		INNER JOIN Produto p
 			ON vi.IdProduto = p.IdProduto
 		INNER JOIN Venda v
 			ON vi.IdVenda = v.IdVenda
 		WHERE YEAR(v.DataVenda) = 2018
+		GROUP BY p.NomeProduto
+		ORDER BY p.NomeProduto
