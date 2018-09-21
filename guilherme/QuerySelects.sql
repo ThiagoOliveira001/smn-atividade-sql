@@ -204,12 +204,74 @@ select FORMAT ( DATAVENDA, 'MM/yyyy') AS DATAS  ,
 
 --20 - Listar todos os clientes e seu produto favorito
 --listar o nome do cliente, sexo, idade e nome do produto favorito (mais comprado pelo cliente), caso não possua deixar em branco
-SELECT C.NomeCliente, C.Sexo, FLOOR(DATEDIFF(DAY, C.DataNascimento, GETDATE()) / 365.25) AS Idade , P.NomeProduto, SUM(VI.Quantidade)
-	FROM Cliente C
-	INNER JOIN 
-		Venda V ON V.IdCliente = C.IdCliente
+SELECT c.NomeCliente,
+	   c.Sexo,
+	   ISNULL(ap.NomeProduto,'') AS NomeProduto,
+	   ISNULL(ap.Compra,'') AS Favorito,
+	   FLOOR(DATEDIFF(day, c.DataNascimento, GETDATE()) / 365.25) AS Idade
+FROM Cliente AS c
+	OUTER APPLY(
+		SELECT TOP(1) 
+			p.NomeProduto,
+			COUNT(vi.IdProduto) AS Compra
+		FROM Produto AS p
+			INNER JOIN VendaItem AS vi ON vi.IdProduto = p.IdProduto
+			INNER JOIN Venda AS v ON v.IdVenda = vi.IdVenda
+		WHERE v.IdCliente = c.IdCliente
+		GROUP BY p.NomeProduto
+		ORDER BY Compra DESC
+	) ap
+ORDER BY c.NomeCliente ASC
+
+
+
+--21 - Listar os produtos e porcentagem dos clientes que compraram
+--listar o nome do produto, marca e porcentagem dos clientes que compraram. EX: nome produto: laka, 41% dos usuarios compram(vendas pagas)
+SELECT (
+	p.NomeProduto + ':' +
+	m.NomeMarca + ',' +
+	FORMAT(
+		(CAST(ap.Clientes AS NUMERIC) / CAST((SELECT COUNT(*) FROM Cliente) AS NUMERIC)) * 100,
+		'#0.00'
+	) +  '% Comprados pelos usuários')
+FROM Produto AS p
+	INNER JOIN Marca AS m ON m.IdMarca = p.IdMarca
+CROSS APPLY(
+	SELECT COUNT(DISTINCT c.IdCliente) AS Clientes
+	FROM Cliente AS c
+		INNER JOIN 
+			Venda AS v ON v.IdCliente = c.IdCliente
+		INNER JOIN 
+			VendaItem AS vi ON vi.IdVenda = v.IdVenda
+	WHERE vi.IdProduto = p.IdProduto AND v.DataPagamento IS NOT NULL
+	) ap
+ORDER BY p.NomeProduto ASC
+
+--22 - Listar os top 10 clientes que pagam mais rapido
+--listar o nome do cliente, sexo, e media de tempo (minutos, horas ou dias) que ele demora para pagar
+SELECT TOP 10 C.NomeCLiente, C.Sexo,
+	ISNULL(AVG(DATEDIFF( DAY , V.DataVenda , V.DataPagamento )),0) AS 'MEDIA'
+FROM Cliente C
 	INNER JOIN
-		VendaItem VI ON VI.IdVenda = V.IdVenda
-	INNER JOIN
-		Produto P ON P.IdProduto = VI.IdProduto
-GROUP BY C.NomeCliente, C.Sexo,C.DataNascimento, P.NomeProduto
+	Venda V ON V.IdCliente = C.IdCliente
+	GROUP BY C.NomeCliente,C.Sexo
+	ORDER BY 'MEDIA' ASC
+
+--23 - Listar o valor gasto acumulado por cliente e data
+--Listar o valor gasto acumulado por cliente e data
+
+
+--24 - Listar média mensal de vendas
+--listar mês/ano e média mensal de vendas no mês/ano de referencia. Média em valor e quantidade.
+
+
+SELECT
+	FORMAT(V.DataVenda,'MM/yyyy') as Referência,
+	AVG(VI.Quantidade) as media_quantidade,
+	CAST(AVG(VI.Quantidade * P.ValorVenda) AS numeric (5,2)) as media_valor
+FROM
+	Venda AS V INNER JOIN VendaItem AS VI ON
+		V.IdVenda = VI.IdVenda
+	INNER JOIN Produto AS P ON
+		VI.IdProduto = P.IdProduto
+	GROUP BY FORMAT(V.DataVenda,'MM/yyyy') 
