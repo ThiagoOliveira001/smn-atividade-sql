@@ -1,3 +1,8 @@
+/*
+	Listar os 15 maiores compradores
+	listar o nome, sexo, data de nascimento e quantidade comprada(somente paga)
+*/
+
 SELECT top 15 c.NomeCliente, c.Sexo, c.DataNascimento, SUM(vi.Quantidade) as 'Quantidade'
 FROM VendaItem AS vi
 INNER JOIN Venda AS v

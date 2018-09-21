@@ -1,3 +1,6 @@
+/*
+	Listar o valor gasto acumulado por cliente e data
+*/
 SELECT c.NomeCliente, v.DataVenda, ca.VG AS 'Valor Gasto',
 	   CONVERT(varchar(60), SUM(ca.VG) OVER (PARTITION BY c.NomeCliente ORDER BY v.IdVenda), 1) AS 'Valor Acumulado'
 FROM Cliente AS c
