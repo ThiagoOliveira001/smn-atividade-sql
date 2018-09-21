@@ -415,7 +415,21 @@ order by Tempo desc
 
 -- Exercicio 23
 
+Select  v.idVenda, c.NomeCliente as Nome, v.DataVenda as data, aux.ValorTotal,
+SUM (aux.ValorTotal) over(Partition by c.NomeCliente order by v.IdVenda) as GastoAcumulado
+From Cliente c
+inner join Venda v
+on c.IdCliente = v.IdCliente
+cross apply (select	SUM (vi.Quantidade * p.ValorVenda) as ValorTotal
 
+from VendaItem vi
+inner join Produto p
+on vi.IdProduto  = p.IdProduto
+inner join Venda v2
+on v2.IdVenda = vi.IdVenda 
+where v2.IdVenda = v.IdVenda) as aux
+group by V.IdVenda, v.DataVenda, c.NomeCliente, aux.ValorTotal
+order BY NomeCliente
 
 
 

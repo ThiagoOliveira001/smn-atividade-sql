@@ -259,14 +259,33 @@ FROM Cliente C
 
 --23 - Listar o valor gasto acumulado por cliente e data
 --Listar o valor gasto acumulado por cliente e data
-
+Select  v.idVenda,
+		c.NomeCliente AS Nome,
+		v.DataVenda AS DATA,
+		x.ValorTotal,
+		SUM (x.ValorTotal) OVER(Partition by c.NomeCliente ORDER BY v.IdVenda) AS 'Gasto Acumulado'
+		From Cliente c
+		INNER JOIN Venda v
+			 On c.IdCliente = v.IdCliente
+		CROSS APPLY (Select		SUM (vi.Quantidade * p.ValorVenda) AS ValorTotal
+		FROM VendaItem vi
+			INNER JOIN
+				Produto p ON vi.IdProduto  = p.IdProduto
+			INNER JOIN 
+				Venda v2 ON v2.IdVenda = vi.IdVenda 
+WHERE v2.IdVenda = v.IdVenda) as x
+GROUP BY V.IdVenda, v.DataVenda, c.NomeCliente, x.ValorTotal
+ORder BY NomeCliente
 
 --24 - Listar média mensal de vendas
 --listar mês/ano e média mensal de vendas no mês/ano de referencia. Média em valor e quantidade.
 
-
 SELECT
+<<<<<<< HEAD
+	FORMAT(V.DataVenda,'mm/yyyy') as Refer�ncia,
+=======
 	FORMAT(V.DataVenda,'mm/yyyy') as Referência,
+>>>>>>> 10ea0299718e8a82328ed84fbf8bdbbc2ec95ec5
 	AVG(VI.Quantidade) as media_quantidade,
 	CAST(AVG(VI.Quantidade * P.ValorVenda) AS numeric (5,2)) as media_valor
 FROM
@@ -274,4 +293,8 @@ FROM
 		V.IdVenda = VI.IdVenda
 	INNER JOIN Produto AS P ON
 		VI.IdProduto = P.IdProduto
+<<<<<<< HEAD
+	GROUP BY FORMAT(V.DataVenda,'mm	/yyyy') 
+=======
 	GROUP BY FORMAT(V.DataVenda,'mm/yyyy') 
+>>>>>>> 10ea0299718e8a82328ed84fbf8bdbbc2ec95ec5
