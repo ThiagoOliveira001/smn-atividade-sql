@@ -371,10 +371,38 @@ order by NomeMarca DESC
 
 select format(DataVenda,'MM/yyyy') as Alvo,
 	count(case when DataPagamento is not null then 1 else null end) as VendasPagas,
-	count(case when DataPagamento is null then 1 else null end) as VendasNaoPagas
+	count(case when DataPagamento	is null then 1 else null end) as VendasNaoPagas
 from Venda
 group by format(DataVenda,'MM/yyyy'), format(DataVenda, 'yyyy')
 order by format(DataVenda, 'yyyy') asc
 
 -- Exercicio 20
+
+SELECT NomeCliente, Sexo, FLOOR(DATEDIFF(DAY, DataNascimento, GETDATE()) / 365.25) as Idade,
+SUM(VendaItem.Quantidade) as Quantidade FROM Cliente 
+INNER JOIN Venda 
+ON Cliente.IdCliente = Venda.IdCliente
+INNER JOIN VendaItem 
+ON Venda.IdVenda = VendaItem.IdVenda
+INNER JOIN Produto 
+ON VendaItem.IdProduto = Produto.IdProduto
+GROUP BY Cliente.NomeCliente,Cliente.Sexo,Cliente.DataNascimento, Produto.NomeProduto
+ORDER BY NomeCliente
+
+-- Exercicio 21
+
+select Produto.NomeProduto, Marca.NomeMarca, cast(COUNT(DISTINCT Venda.IdCliente) as numeric)*100/ 322 as total from Produto
+inner join Marca 
+on Produto.IdMarca = Marca.IdMarca
+inner join VendaItem
+on Produto.IdProduto = VendaItem.IdProduto
+inner join Venda
+on VendaItem.IdVenda = Venda.IdVenda
+inner join Cliente
+on Venda.IdCliente = Cliente.IdCliente
+where DataPagamento is not null
+group by Produto.NomeProduto, Marca.NomeMarca
+order by total DESC
+
+-- Exercicio 22
 
