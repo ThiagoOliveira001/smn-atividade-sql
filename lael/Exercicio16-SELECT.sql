@@ -2,16 +2,11 @@
 
 SELECT P.NomeProduto, TP.NomeTipoProduto, M.NomeMarca, P.ValorVenda
 	FROM Produto AS P
-		INNER JOIN TipoProduto AS TP
-		ON P.IdTipoProduto = TP.IdTipoProduto
-
 		INNER JOIN Marca AS M
 		ON P.IdMarca = M.IdMarca
+		INNER JOIN TipoProduto AS TP
+		ON P.IdTipoProduto = TP.IdTipoProduto
+		LEFT JOIN VendaItem AS VI
+		ON P.IdProduto = VI.IdProduto
+	WHERE VI.IdProduto IS NULL
 
-CROSS APPLY(
-SELECT V.DataVenda
-		INNER JOIN Venda AS V
-		ON V.IdVenda = P.IdProduto
-	WHERE V.DataPagamento IS NULL)
-
-SELECT * FROM Produto
