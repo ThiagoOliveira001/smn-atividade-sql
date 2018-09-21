@@ -4,8 +4,8 @@ AUTOR: MARIA ANDRESSA DE PAULA SILVA
 DATA: 20/09/2018
 */
 
---Listar o mes/ano, a quantidade total de produtos vendidos (pagos) 
---e a quantidade total de produtos vendidos (não pagos) no mes/ano de referencia
+--Listar o nome do cliente, sexo, idade e nome do produto favorito (mais comprado pelo cliente), 
+--caso não possua deixar em branco
 SELECT C.NomeCliente, C.Sexo, FLOOR(DATEDIFF(DAY, C.DataNascimento, GETDATE()) / 365.25) AS Idade , ISNULL(CA.NomeProduto, '')
 FROM Cliente as C
 OUTER APPLY(
