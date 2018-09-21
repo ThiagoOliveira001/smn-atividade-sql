@@ -1,3 +1,8 @@
+/*
+	Listar produtos e quantidade vendidos em 2018
+	Listar o nome do produto e quantidade
+*/
+
 SELECT p.NomeProduto as 'Nome', sum(vi.Quantidade) as 'Quantidade'
 FROM VendaItem AS vi
 INNER JOIN Produto AS p

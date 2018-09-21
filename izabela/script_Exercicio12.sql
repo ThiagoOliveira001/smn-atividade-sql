@@ -1,3 +1,8 @@
+/*
+	Listar os produtos mais lucrativos
+	listar o nome, marca, quantidade vendida e valor do lucro obtido ((valor venda - valor compra) * quantidade vendida) dos 10 produtos mais lucrativos (Somente produtos pagos)
+*/
+
 SELECT TOP 10 p.NomeProduto, m.NomeMarca, SUM(vi.Quantidade) AS 'Quantidade', (p.ValorVenda - p.ValorCompra) * (vi.Quantidade) AS 'Lucro'
 FROM VendaItem AS vi
 INNER JOIN Produto AS p

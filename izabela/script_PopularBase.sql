@@ -1,3 +1,9 @@
+/*
+	Inserir Clientes, Produtos(Marcas e Tipos) e vendas no banco
+	20 clientes
+	20 produtos juntamente com seus tipos e marcas
+	50 vendas de diferentes produtos, quantidades, clientes e datas
+*/
 use LojaDoces
 
 insert into Cliente

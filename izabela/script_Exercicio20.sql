@@ -1,3 +1,8 @@
+/*
+	Listar todos os clientes e seu produto favorito
+	listar o nome do cliente, sexo, idade e nome do produto favorito (mais comprado pelo cliente), caso não possua deixar em branco
+*/
+
 SELECT c.NomeCliente, c.Sexo, FLOOR(DATEDIFF(DAY, c.DataNascimento, GETDATE()) / 365.25) as 'Idade',
 		ISNULL(ca.NomeProduto, ' ') AS 'Produto Favorito'
 FROM Cliente AS c

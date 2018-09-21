@@ -1,3 +1,8 @@
+/*
+	Listar o total de vendas por mes
+	listar o mes/ano,  a quantidade total de vendas (pagas) e a quantidade total de vendas (não pagas) no mes/ano de referencia
+*/
+
 SELECT	FORMAT(v.DataVenda, 'yyyy/MM') AS Mes_Ano,
   SUM(CASE
     WHEN

@@ -1,3 +1,8 @@
+/*
+	Listar todas as compras pagas em Janeiro de 2018
+	listar o nome do produto, marca, tipo, nome do cliente, data da compra e data de pagamento de todos os produtos pagos em janeiro de 2018
+*/
+
 select p.NomeProduto, m.NomeMarca, tp.NomeTipoProduto, c.NomeCliente, v.DataVenda, v.DataPagamento
 	from VendaItem as vi
 		inner join Produto as p
