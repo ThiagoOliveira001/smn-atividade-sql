@@ -1,0 +1,12 @@
+--24 - Listar média mensal de vendas
+--listar mês/ano e média mensal de vendas no mês/ano de referencia.
+--Média em valor e quantidade.
+
+Select FORMAT(v.DataVenda, 'yyyy/MM') as Data, AVG (vi.Quantidade) as Media_quant, Concat( 'R$ ', CAST(AVG(p.ValorVenda * vi.Quantidade) as numeric (5,2))) as Media_Valor
+FROM Venda v 
+Inner Join VendaItem vi
+	on v.IdVenda = vi.IdVenda
+Inner join Produto p
+	on vi.IdProduto = p.IdProduto
+GROUP BY FORMAT(v.DataVenda, 'yyyy/MM')
+Order by Data desc 

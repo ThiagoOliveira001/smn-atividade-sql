@@ -1,0 +1,4 @@
+--14 - Listar Todos os produtos que tenham a palavra "cola" em seu nome
+
+SELECT p.NomeProduto FROM Produto p
+WHERE p.NomeProduto like '%cola%'
