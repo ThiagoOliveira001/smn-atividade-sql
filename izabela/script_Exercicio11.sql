@@ -3,8 +3,8 @@
 	Listar o nome da marca, e quantidade de produtos em estoque
 */
 
-SELECT m.NomeMarca, SUM(p.QuantidadeEstoque) as 'Quantidade estoque'
-FROM Marca AS m
-INNER JOIN Produto AS p
-	 ON p.IdMarca = m.IdMarca
-GROUP BY m.NomeMarca
+SELECT ma.NomeMarca, SUM(pr.QuantidadeEstoque) as 'Quantidade estoque'
+FROM Marca ma WITH(NOLOCK)
+INNER JOIN Produto pr WITH(NOLOCK)
+	 ON pr.IdMarca = ma.IdMarca
+GROUP BY ma.NomeMarca

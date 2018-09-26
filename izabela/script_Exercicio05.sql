@@ -2,8 +2,8 @@
 	Listar clientes e quantidade comprado em 2018
 	Listar o nome do cliente e quantidade de produtos diferentes comprados em 2018
 */
-SELECT Resultado.nc AS 'Nome Cliente',
-  COUNT(Resultado.idp) AS 'Quantidade produtos diferentes'
+SELECT	Resultado.nc AS 'Nome Cliente',
+		COUNT(Resultado.idp) AS 'Quantidade produtos diferentes'
 FROM (SELECT
 		  c.NomeCliente AS nc,
 		  p.IdProduto AS idp

@@ -3,17 +3,17 @@
 	listar o nome do cliente, sexo, idade e nome do produto favorito (mais comprado pelo cliente), caso não possua deixar em branco
 */
 
-SELECT c.NomeCliente, c.Sexo, FLOOR(DATEDIFF(DAY, c.DataNascimento, GETDATE()) / 365.25) as 'Idade',
+SELECT cl.NomeCliente, cl.Sexo, FLOOR(DATEDIFF(DAY, cl.DataNascimento, GETDATE()) / 365.25) as 'Idade',
 		ISNULL(ca.NomeProduto, ' ') AS 'Produto Favorito'
-FROM Cliente AS c
+FROM Cliente cl WITH(NOLOCK)
 OUTER APPLY (
-	SELECT TOP 1 p.NomeProduto, SUM(vi.Quantidade) AS 'Quantidade'
-		FROM Produto AS p
-		INNER JOIN VendaItem AS vi
-		  ON p.IdProduto = vi.IdProduto
-		INNER JOIN Venda AS v
-		  ON vi.IdVenda = v.IdVenda
-		WHERE v.IdCliente = c.IdCliente
-		GROUP BY p.NomeProduto
+	SELECT TOP(1) pr.NomeProduto, SUM(vi.Quantidade) AS 'Quantidade'
+		FROM Produto pr WITH(NOLOCK)
+		INNER JOIN VendaItem vi WITH(NOLOCK)
+		  ON pr.IdProduto = vi.IdProduto
+		INNER JOIN Venda ve WITH(NOLOCK)
+		  ON vi.IdVenda = ve.IdVenda
+		WHERE ve.IdCliente = cl.IdCliente
+		GROUP BY pr.NomeProduto
 		ORDER BY SUM(vi.Quantidade) DESC) AS ca
-	ORDER BY c.NomeCliente
+	ORDER BY cl.NomeCliente

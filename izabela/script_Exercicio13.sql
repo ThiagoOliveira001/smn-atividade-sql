@@ -3,16 +3,19 @@
 	listar o nome, sexo, data de nascimento e quantidade comprada(somente paga)
 */
 
-SELECT top 15 c.NomeCliente, c.Sexo, c.DataNascimento, SUM(vi.Quantidade) as 'Quantidade'
-FROM VendaItem AS vi
-INNER JOIN Venda AS v
-  ON vi.IdVenda = v.IdVenda
-INNER JOIN Produto AS p
-  ON vi.IdProduto = p.IdProduto
-INNER JOIN Cliente AS c
-  ON v.IdCliente = c.IdCliente
-WHERE v.DataPagamento < GETDATE()
-AND v.DataPagamento IS NOT NULL
-GROUP BY c.NomeCliente, c.Sexo, c.DataNascimento
-ORDER BY Quantidade DESC
+SELECT TOP(15)	cl.NomeCliente,
+				cl.Sexo,
+				cl.DataNascimento,
+				SUM(vi.Quantidade) as 'Quantidade'
+	FROM VendaItem vi WITH(NOLOCK)
+	INNER JOIN Venda ve WITH(NOLOCK)
+	  ON vi.IdVenda = ve.IdVenda
+	INNER JOIN Produto pr WITH(NOLOCK)
+	  ON vi.IdProduto = pr.IdProduto
+	INNER JOIN Cliente cl WITH(NOLOCK)
+	  ON ve.IdCliente = cl.IdCliente
+	WHERE ve.DataPagamento <= GETDATE()
+		AND ve.DataPagamento IS NOT NULL
+	GROUP BY cl.NomeCliente, cl.Sexo, cl.DataNascimento
+	ORDER BY Quantidade DESC
 

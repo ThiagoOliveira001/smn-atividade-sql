@@ -3,8 +3,10 @@
 	listar o nome, marca e quantidade em estoque de todos os produtos do tipo chocolate
 */
 
-select NomeProduto, NomeMarca, QuantidadeEstoque
-from Produto as p
-inner join Marca as m 
-on p.IdMarca = m.IdMarca
-where IdTipoProduto = 5
+SELECT	pr.NomeProduto,
+		ma.NomeMarca,
+		pr.QuantidadeEstoque
+	FROM Produto pr
+	INNER JOIN Marca ma
+		ON pr.IdMarca = ma.IdMarca
+	WHERE IdTipoProduto = 5

@@ -3,12 +3,12 @@
 	Listar o nome da marca e o nome de todos os seus produtos separados por ","
 */
 
-SELECT NomeMarca,
+SELECT ma.NomeMarca,
 	COALESCE(
-		(SELECT CAST(NomeProduto AS VARCHAR(50)) + ', ' AS [text()]
-		 FROM Produto AS p
-		 WHERE p.IdMarca = m.IdMarca
+		(SELECT CAST(pr.NomeProduto AS VARCHAR(50)) + ', ' AS [text()]
+		 FROM Produto pr WITH(NOLOCK)
+		 WHERE pr.IdMarca = ma.IdMarca
 		 FOR XML PATH(''), TYPE).value('.[1]', 'VARCHAR(MAX)'), '') AS NomeProduto
-FROM Marca AS m
-GROUP BY NomeMarca, IdMarca
-ORDER BY NomeMarca
+	FROM Marca ma WITH(NOLOCK)
+	GROUP BY NomeMarca, IdMarca
+	ORDER BY NomeMarca

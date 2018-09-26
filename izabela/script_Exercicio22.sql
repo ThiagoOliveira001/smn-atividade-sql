@@ -2,10 +2,12 @@
 	Listar os top 10 clientes que pagam.
 	Listar o nome do cliente, sexo, e media de tempo (minutos, horas ou dias) que ele demora para pagar
 */
-select top 10 c.NomeCliente, c.Sexo, AVG(DATEDIFF(DAY, v.DataVenda, v.DataPagamento)) as 'Média dia'
-from Venda as v
-inner join Cliente as c
-on v.IdCliente = c.IdCliente
-where v.DataPagamento is not null and v.DataPagamento <= getdate()
-group by c.NomeCliente, c.Sexo
-order by [Média dia] 
+SELECT TOP(10)	cl.NomeCliente, 
+				cl.Sexo, 
+				AVG(DATEDIFF(MINUTE, ve.DataVenda, ve.DataPagamento)) as 'Média dia'
+	FROM Venda ve WITH(NOLOCK)
+	INNER JOIN Cliente cl WITH(NOLOCK)
+	ON ve.IdCliente = cl.IdCliente
+	WHERE ve.DataPagamento is not null and ve.DataPagamento <= GETDATE()
+	GROUP BY cl.NomeCliente, cl.Sexo
+	ORDER BY [Média dia] 

@@ -3,6 +3,6 @@
 	listar o nome dos produtos que tenham a palavra "cola" em seu nome
 */
 
-SELECT NomeProduto 
-FROM Produto
-WHERE NomeProduto LIKE '%Cola%'
+SELECT pr.NomeProduto 
+	FROM Produto pr
+	WHERE NomeProduto LIKE '%Cola%'
